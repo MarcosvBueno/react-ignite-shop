@@ -25,6 +25,13 @@ export const {
       primary: 'Roboto, sans-serif'
     },
 
+    fontSizes: {
+      md : '1.125',
+      lg: '1.25rem',
+      xl: '1.5rem',
+      "2xl": '2rem',
+    }
+
     
     }
   }
