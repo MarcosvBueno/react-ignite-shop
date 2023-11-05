@@ -17,7 +17,6 @@ export const globalStyles = globalCss({
     fontFamily: '$primary',
     fontSize: '$1',
     fontWeight: 400,
-    color: 'black',
   },
 
 
