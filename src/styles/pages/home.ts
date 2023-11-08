@@ -12,7 +12,7 @@ export const HomeContainer = styled('main', {
 });
 
 
-export const Product = styled('a', {
+export const Product = styled('div', {
 
   background: "linear-gradient(180deg, #1ea483 0%, #7465d4 100%)",
   borderRadius: 8,
@@ -49,8 +49,9 @@ export const Product = styled('a', {
     opacity: 0,
     transition: "all 0.2s ease-in-out",
 
-    "strong": {
+    strong : {
       fontSize: '$lg',
+     color: '$gray100'
     },
 
     span: {
