@@ -10,18 +10,26 @@ import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
 import { GetStaticProps, } from "next";
 import CartButton from "@/components/CartButton";
+import useCart from "@/hooks/useCart";
+import { Iproducts } from "@/contexts/CartContext";
+import {MouseEvent} from "react";
 
 interface HomeProps {
-  products : any;
-  id: string;
-  name: string;
-  image: string;
-  price: string;
+  products : Iproducts[];
 
 }[]
 
 export default function Home({products}: HomeProps) {
 
+  const {addToCart} = useCart();
+
+  function handleAddToCart(e: MouseEvent<HTMLButtonElement>, product: Iproducts) {
+    e.preventDefault();
+    if (addToCart) {
+      addToCart(product);
+    }
+  }
+  
   const [sliderRef] = useKeenSlider({
     slides:{
       perView: 3,
@@ -35,7 +43,7 @@ export default function Home({products}: HomeProps) {
       <title>Home | E-commerce</title>
     </Head>
     <HomeContainer ref={sliderRef} className="keen-slider">
-    {products.map((product: HomeProps) => {
+    {products.map((product) => {
       return (
         <Link href={`/product/${product.id}`} key={product.id} prefetch={false}>
         <Product className="keen-slider__slide">
@@ -45,7 +53,7 @@ export default function Home({products}: HomeProps) {
             <strong>{product.name}</strong>
             <span>{product.price}</span>
             </div>
-          <CartButton color="green" />
+          <CartButton color="green" onClick={(e) => handleAddToCart(e, product)}/>
           </footer>
         </Product>
         </Link>          
