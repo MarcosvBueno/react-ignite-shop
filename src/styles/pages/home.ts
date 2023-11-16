@@ -58,7 +58,13 @@ export const Product = styled('div', {
       fontSize: '$xl',
       color: '$green300',
       fontWeight: 'bold',
-    }
+    },
+
+    div: {
+      display : 'flex',
+      flexDirection: 'column',
+      gap: 4,
+    },
   },
 
   "&:hover": {

@@ -1,5 +1,5 @@
 import { HomeContainer, Product } from "@/styles/pages/home";
-
+import Head from "next/head";
 import {useKeenSlider} from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 
@@ -9,6 +9,7 @@ import Link from "next/link";
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
 import { GetStaticProps, } from "next";
+import CartButton from "@/components/CartButton";
 
 interface HomeProps {
   products : any;
@@ -29,6 +30,10 @@ export default function Home({products}: HomeProps) {
   })
 
   return (
+    <>
+    <Head>
+      <title>Home | E-commerce</title>
+    </Head>
     <HomeContainer ref={sliderRef} className="keen-slider">
     {products.map((product: HomeProps) => {
       return (
@@ -36,15 +41,18 @@ export default function Home({products}: HomeProps) {
         <Product className="keen-slider__slide">
           <Image src={product.image} alt={""} width={480} height={520}/>
           <footer>
+            <div>
             <strong>{product.name}</strong>
             <span>{product.price}</span>
+            </div>
+          <CartButton color="green" />
           </footer>
         </Product>
         </Link>          
       )
     })}
     </HomeContainer>
-  
+    </>
   
 
 )}

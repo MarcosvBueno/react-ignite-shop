@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 import Stripe from "stripe";
 import Image from "next/image";
-
+import Head from "next/head";
 interface SuccessProps {
   customerName: string;
   product: {
@@ -14,7 +14,15 @@ interface SuccessProps {
 }
 
 function Success({customerName, product}: SuccessProps) {
-  return ( <>
+  return ( 
+  <>
+  <Head>
+    
+    <title>Compra Efetuada | E-commerce</title>
+
+    <meta name="robots" content="noindex"/>
+
+  </Head>
     <SuccessContainer>
       <h1>Compra Efetuada</h1>
 
@@ -27,12 +35,23 @@ function Success({customerName, product}: SuccessProps) {
         Voltar ao catálogo
       </Link>
     </SuccessContainer>
-  </> );
+  </> 
+  );
 }
 
 
 
 export const getServerSideProps: GetServerSideProps = async ({query}) => {
+
+  if(!query.session_id){
+    return {
+      redirect :{
+        destination: '/',
+        permanent: false,
+      
+      }
+    }
+  }
 
   const sessionId = String(query.session_id);
 

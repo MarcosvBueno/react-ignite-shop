@@ -6,6 +6,7 @@ import Stripe from "stripe";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useState } from "react";
+import Head from "next/head";
 
 interface ProductProps {
   product: {
@@ -54,6 +55,9 @@ function Product({product}: ProductProps) {
 
   return ( 
     <>
+    <Head>
+      <title>{product.name} | E-commerce</title>
+    </Head>
       <ProductContainer>
         <ImageContainer>
         <Image src={product.image} alt={""} width={480} height={520}/>
@@ -63,7 +67,7 @@ function Product({product}: ProductProps) {
           <span>{product.price}</span>
           <p>{product.description}</p>
 
-          <button disabled={isCreatingCheckoutSession} onClick={handleBuy}>Comprar Agora</button>
+          <button disabled={isCreatingCheckoutSession} onClick={handleBuy}>Colocar no carrinho</button>
         </ProductDetails>
       </ProductContainer>
     </>
