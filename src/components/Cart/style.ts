@@ -24,6 +24,12 @@ export const CartContent = styled(Dialog.Content, {
     color: '$gray100',
   },
   
+  section: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1.5rem',
+    flex: 1,
+  },
   
 
 });

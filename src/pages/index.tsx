@@ -21,14 +21,13 @@ interface HomeProps {
 
 export default function Home({products}: HomeProps) {
 
-  const {addToCart} = useCart();
+  const {addToCart,existProducts} = useCart();
 
   function handleAddToCart(e: MouseEvent<HTMLButtonElement>, product: Iproducts) {
     e.preventDefault();
-    if (addToCart) {
-      addToCart(product);
-    }
+    addToCart(product);
   }
+  
   
   const [sliderRef] = useKeenSlider({
     slides:{
@@ -53,7 +52,7 @@ export default function Home({products}: HomeProps) {
             <strong>{product.name}</strong>
             <span>{product.price}</span>
             </div>
-          <CartButton color="green" onClick={(e) => handleAddToCart(e, product)}/>
+          <CartButton color="green" onClick={(e) => handleAddToCart(e, product)} disabled={existProducts(product.id)}/>
           </footer>
         </Product>
         </Link>          
@@ -81,7 +80,8 @@ export const getStaticProps: GetStaticProps = async () => {
         style: 'currency',
         currency: 'BRL'
       }).format( price.unit_amount ? price.unit_amount / 100 : 0),
-      
+      numberPrice: price.unit_amount ? price.unit_amount / 100 : 0,
+      defaultPriceId: price.id,
     }
   });
 

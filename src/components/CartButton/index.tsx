@@ -4,7 +4,8 @@ import { MouseEvent } from "react";
 
 type CartButtonProps = {
   color?: "gray" | "green";
-  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
 }
 
 function CartButton({ color = "gray", ...rest }: CartButtonProps) {
