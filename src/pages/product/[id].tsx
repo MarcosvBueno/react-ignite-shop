@@ -7,51 +7,28 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { useState } from "react";
 import Head from "next/head";
+import useCart from "@/hooks/useCart";
+import { Iproducts } from "@/contexts/CartContext";
 
 interface ProductProps {
-  product: {
-    id: string;
-    name: string;
-    image: string;
-    price: string;
-    description: string;
-    default_price_id: string;
-  }
+  product: Iproducts;
 
 }
 
 function Product({product}: ProductProps) {
 
-  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false);
 
   const {isFallback} = useRouter();
+  const {existProducts,addToCart} = useCart();
 
   if ( isFallback ) {
     return (
       <p>Loading ...</p>
     )
   }
-   
-  async function handleBuy() {
-    try {
 
-      setIsCreatingCheckoutSession(true);
-      const response = await axios.post('/api/checkout', {
-        priceId : product.default_price_id,
-      })
-
-      const {checkoutUrl} = response.data;
-     
-
-      window.location.href = checkoutUrl;
-      
-    } catch (error) {
-      
-      alert("Falha ao redirecionar para o pagamento");
-      console.log(product.default_price_id)
-      setIsCreatingCheckoutSession(false);
-    }
-  }
+  const itemAlreadyExists = existProducts(product.id);
+ 
 
   return ( 
     <>
@@ -67,7 +44,7 @@ function Product({product}: ProductProps) {
           <span>{product.price}</span>
           <p>{product.description}</p>
 
-          <button disabled={isCreatingCheckoutSession} onClick={handleBuy}>Colocar no carrinho</button>
+          <button disabled={existProducts(product.id)} onClick={() => addToCart(product)}>{itemAlreadyExists ? "Produto já está no carrinho" : "Colocar no carrinho "}</button>
         </ProductDetails>
       </ProductContainer>
     </>
@@ -116,6 +93,7 @@ export const getStaticProps : GetStaticProps<any, {id: string}> = async ({ param
         }).format( price.unit_amount ? price.unit_amount / 100 : 0),
         description: Product.description,
         default_price_id: price.id,
+        numberPrice: price.unit_amount ? price.unit_amount / 100 : 0,
       }
     },
     revalidate: 60 * 60 * 2 //2 hours
