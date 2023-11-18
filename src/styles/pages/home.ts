@@ -6,7 +6,7 @@ export const HomeContainer = styled('main', {
   width: '100%',
   // gap: '3rem',
   marginLeft: 'auto',
-  minHeight: 656,
+  minHeight: "100%",
 
 
 });
