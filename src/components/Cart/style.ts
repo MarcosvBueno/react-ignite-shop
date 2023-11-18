@@ -31,6 +31,12 @@ export const CartContent = styled(Dialog.Content, {
     flex: 1,
   },
   
+  "@media(max-width: 768px)": {
+    width: '100%',
+    padding: '2rem',
+    paddingTop: '3rem',
+    boxShadow: 'none',
+  }
 
 });
 
@@ -125,6 +131,11 @@ export const CartFinalization = styled('div', {
     '&: not(:disabled)hover': {
       backgroundColor: '$green300',
     },
+  },
+
+  "@media(max-width: 768px)": {
+   marginTop: '1rem',  
+  
   }
 
 
@@ -167,9 +178,5 @@ export const FinalizationDetails = styled('div', {
   }
   
 
-
-  
-
-
-
 });
+

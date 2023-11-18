@@ -72,5 +72,5 @@ export const Product = styled('div', {
       transform: 'translateY(0)',
       opacity: 1,
     }
-  }
+  },
 });

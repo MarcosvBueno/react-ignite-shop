@@ -1,4 +1,3 @@
-
 import { styled } from "..";
 
 export const ProductContainer = styled('main', {
@@ -10,6 +9,17 @@ export const ProductContainer = styled('main', {
 
   maxWidth: 1180,
   margin: '0 auto',
+
+  "@media(max-width: 768px)": {
+
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: '0 auto',
+    padding: '0rem 1.5rem',
+    overflowX: 'hidden',
+  }
 });
 
 export const ImageContainer = styled('div', {
@@ -24,7 +34,19 @@ export const ImageContainer = styled('div', {
     display : 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    objectFit: 'cover',
+
+    img : {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+    },
+
+    "@media(max-width: 768px)": {
+
+      width: "100%",
+
+      height: 'auto',
+    }
 
 });
 
@@ -75,6 +97,17 @@ export const ProductDetails = styled('div', {
     },
   },
   
+  "@media(max-width: 768px)": {
+
+    h1: {
+      fontSize: '$xl',
+    },
+
+    button: {
+      marginTop: '2rem',
+      marginBottom: '2rem',
+    }
+  }
   
 
 });

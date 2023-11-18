@@ -12,7 +12,7 @@ import { GetStaticProps, } from "next";
 import CartButton from "@/components/CartButton";
 import useCart from "@/hooks/useCart";
 import { Iproducts } from "@/contexts/CartContext";
-import {MouseEvent} from "react";
+import {MouseEvent, useEffect, useState} from "react";
 
 interface HomeProps {
   products : Iproducts[];
@@ -22,19 +22,33 @@ interface HomeProps {
 export default function Home({products}: HomeProps) {
 
   const {addToCart,existProducts} = useCart();
+  const [slidesToShow, setSlidesToShow] = useState(3);
 
   function handleAddToCart(e: MouseEvent<HTMLButtonElement>, product: Iproducts) {
     e.preventDefault();
     addToCart(product);
   }
-  
+  const slideShow = () => {
+    if (window.innerWidth < 980) {
+      setSlidesToShow(1);
+    } else {
+      setSlidesToShow(3);
+    }
+  }
+
+  useEffect(() => {
+    slideShow();
+    window.addEventListener("resize", slideShow);
+  }, []);
   
   const [sliderRef] = useKeenSlider({
-    slides:{
-      perView: 3,
+    slides: {
+      perView: slidesToShow,
       spacing: 48,
-    }
-  })
+    },
+  });
+
+  
 
   return (
     <>
