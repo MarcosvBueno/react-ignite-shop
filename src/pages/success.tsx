@@ -1,56 +1,56 @@
-import { stripe } from "@/lib/stripe";
-import { ImageContainer, SuccessContainer } from "@/styles/pages/success";
-import { GetServerSideProps } from "next";
-import Link from "next/link";
-import Stripe from "stripe";
-import Image from "next/image";
-import Head from "next/head";
+import { stripe } from '@/lib/stripe';
+import {
+  ImageContainer,
+  ImagesContainer,
+  SuccessContainer
+} from '@/styles/pages/success';
+import { GetServerSideProps } from 'next';
+import Link from 'next/link';
+import Stripe from 'stripe';
+import Image from 'next/image';
+import Head from 'next/head';
 interface SuccessProps {
   customerName: string;
-  product: {
-    name: string;
-    image: string;
-  }
+  productsImages: string[];
 }
 
-function Success({customerName, product}: SuccessProps) {
-  return ( 
-  <>
-  <Head>
-    
-    <title>Compra Efetuada | E-commerce</title>
+function Success({ customerName, productsImages }: SuccessProps) {
+  return (
+    <>
+      <Head>
+        <title>Compra Efetuada | E-commerce</title>
 
-    <meta name="robots" content="noindex"/>
+        <meta name="robots" content="noindex" />
+      </Head>
+      <SuccessContainer>
+     
+        <ImagesContainer>
+          {productsImages.map(image => (
+            <ImageContainer key={image}>
+              <Image src={image} alt={image} width={100} height={100} />
+            </ImageContainer>
+          ))}
+        </ImagesContainer>
+        <h1>Compra efetuada !</h1>
+        <p>
+          Uhuul <strong>{customerName}</strong>, sua compra de {' '}
+          {productsImages.length} camisetas já está a caminho da sua casa!
+        </p>
 
-  </Head>
-    <SuccessContainer>
-      <h1>Compra Efetuada</h1>
-
-      <ImageContainer>
-      <Image src={product.image} alt={""} width={120} height={110}/>
-      </ImageContainer>
-      <p>Uhuul <strong>{customerName}</strong>, sua <strong>{product.name}</strong> já está a caminho da sua casa. </p>
-
-      <Link href="/">
-        Voltar ao catálogo
-      </Link>
-    </SuccessContainer>
-  </> 
+        <Link href="/">Voltar ao catálogo</Link>
+      </SuccessContainer>
+    </>
   );
 }
 
-
-
-export const getServerSideProps: GetServerSideProps = async ({query}) => {
-
-  if(!query.session_id){
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  if (!query.session_id) {
     return {
-      redirect :{
+      redirect: {
         destination: '/',
-        permanent: false,
-      
+        permanent: false
       }
-    }
+    };
   }
 
   const sessionId = String(query.session_id);
@@ -60,18 +60,17 @@ export const getServerSideProps: GetServerSideProps = async ({query}) => {
   });
 
   const customerName = session.customer_details?.name;
-  const product = session.line_items?.data[0].price?.product as Stripe.Product;
+  const productsImages = session.line_items?.data.map(item => {
+    const product = item.price?.product as Stripe.Product;
+    return product.images[0];
+  });
 
   return {
-    props:{
+    props: {
       customerName,
-      product : {
-        name: product.name,
-        image: product.images[0],
-      }
+      productsImages
     }
-  }
-
-}
+  };
+};
 
 export default Success;
