@@ -1,7 +1,8 @@
 # Ignite Shop - E-Commerce de Camisetas Rocketseat
 
 Ignite Shop, uma plataforma de e-commerce para comprar camisetas temáticas da Rocketseat. Este projeto é construído utilizando tecnologias web modernas, como Next.js, Stripe para o checkout, useShoppingCart para funcionalidade do carrinho, Stitches para estilização, Axios para requisições à API e TypeScript para desenvolvimento com tipagem segura.
-![image](https://github.com/MarcosvBueno/react-ignite-shop/assets/104960654/62213f9a-a9d7-4823-a03a-6e8d1cb249da)
+![image](https://github.com/MarcosvBueno/react-ignite-shop/assets/104960654/aa1d7fd1-81dd-4058-b1cf-c6f9a2a52f0b)
+
 
 ## Índice
 
