@@ -34,8 +34,9 @@ export const CartContent = styled(Dialog.Content, {
   "@media(max-width: 768px)": {
     width: '100%',
     padding: '2rem',
-    paddingTop: '3rem',
+    paddingTop: '1.75rem',
     boxShadow: 'none',
+    overflowY: 'scroll',
   }
 
 });
@@ -132,11 +133,10 @@ export const CartFinalization = styled('div', {
       backgroundColor: '$green300',
     },
   },
-
   "@media(max-width: 768px)": {
-   marginTop: '1rem',  
-  
+    marginTop: "1rem",
   }
+
 
 
 
@@ -175,8 +175,12 @@ export const FinalizationDetails = styled('div', {
         fontSize: '$xl',
       }
     }
+  },
+
+  "@media(max-width: 768px)": {
+    marginBottom: 20,
+    paddingTop: 20,
   }
-  
 
 });
 
